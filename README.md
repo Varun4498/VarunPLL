@@ -48,6 +48,10 @@ Day 2 : PLL simulation (Prelayout and Postlayout)
 - [Acknowledgement](#acknowledgement)
 
 
+# GOAL
+
+To get a precise clock signal without frequency or phase noise.  
+
 
 
 # DAY 1 - Basics of PLL and Steps for lab setup
@@ -60,15 +64,15 @@ The day 1 covers the basics of PLL and steps to install ngspice and magic for de
 
 Phase locked loop is a feedback system which generates a high frequency, low noise clock.
 
-Crystal Oscillators and Voltage controlled oscillators are the two ways to generate the clock signal. 
+clock signals are produced by either Quartz crystal or voltage controlled oscillator. 
 
-Crystal oscillators are the purest form of clock with excellent phase noise. The drawback of crystal oscillators is that it has very low frequency and have very limited tuning range. Hence, Voltage controlled oscillators (VCOs) are used which can generate high frequency clock, but it has poor phase noise. To get a low phase noise, high frequency clock, we use phase locked loop which makes the VCO mimic the crystal to achieve low phase noise, while still getting high frequency clock.
+Crystal oscillators are the purest form of clock with excellent phase noise (untimely arrival of data). The drawback of crystal oscillators is that it has very low frequency and have very limited tuning range. Hence, Voltage controlled oscillators (VCOs) are used which can generate high frequency clock, but it has poor phase noise. To get a low phase noise, high frequency clock, we use phase locked loop which makes the VCO mimic the crystal to achieve low phase noise, while still getting high frequency clock.
 
-Phase noise is the random fluctuation of the zero crossing of a periodic waveform , that is, untimely arrival of data. 
+PLL mimic the reference means to have the same/a multiple of the reference frequency and a constant phase difference with it. 
 
 The block diagram of PLL is as shown below:
 
-![Digital PLL]()
+![Digital PLL](https://user-images.githubusercontent.com/56344583/129461682-a92beb23-80ab-4747-b6b4-468a668e3501.jpg)
 
 PLL has five blocks: 
 
@@ -80,7 +84,7 @@ For, detecting the phase error between the input reference clock and the feedbac
 
 The basic block diagram of PFD is as shown below:
 
-![PFD_block]()
+![PFD_block](https://user-images.githubusercontent.com/56344583/129461683-40a48e25-1af5-4709-b362-1457c9b7ec3b.JPG)
 
 When falling edge of reference clock leads feedback clock, the UP signal goes high and DN signal remains low. UP signal remains high until it detects the falling edge of the feedback clock. As soon as feedback clock falling edge arrives, UP signal goes low. 
 
@@ -127,7 +131,7 @@ Range of frequencies which PLL can lock when started from unlocked condition. Ca
 
 3. Settling time
 
-The time taken by the PLL to lock from an unlocked state is called the settling time. It depends on how quickly charge pump rises to the stable value.
+The time within which the PLL is able to lock-in from an unlocked condition. It depends on how quickly charge pump rises to the stable value.
 
 ## Lab setup
 
@@ -206,15 +210,13 @@ After creating the .cr files we run the Ngspice simulation.
 
 ### Phase Frequency Detector 
 
-#### The command to be run to obtain the PFD waveform is as shown below:
 
-![PD_ngspice]()
 
 Similarly, we run this command for different PLL blocks by appropriately changing the name of the block as per the requirement.
 
 #### The PFD waveform is as shown below:
 
-![PD_wave]()
+![PD_wave](https://user-images.githubusercontent.com/56344583/129461684-f82a9ce6-f632-41e1-88d5-f3d8bd5d83a6.JPG)
 
 <b>Red:</b> Clock 1 <br>
 <b>Blue:</b> Clock 2 <br>
@@ -225,13 +227,13 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### CP response when "UP" signal is high:
 
-![CP_charging]()
+![CP_charging](https://user-images.githubusercontent.com/56344583/129461685-8cebbf5b-51b5-4d89-ba4e-2252898462f3.JPG)
 
 <b>Red:</b> Charge pump output voltage <br>
 
 #### CP output rise due to charge leakage:
 
-![cp_wave]()
+![cp_wave](https://user-images.githubusercontent.com/56344583/129461686-3ebff2ef-9b1d-490a-a4e2-9ab59e9cc5bd.JPG)
 
 <b>Red:</b> Charge pump output voltage <br>
 <b>Leakage:</b> 40uV increase every 1us <br>
@@ -240,7 +242,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### VCO waveform is as shown below:
 
-![VCO_wave]()
+![VCO_wave](https://user-images.githubusercontent.com/56344583/129461687-7bc2da0f-6d6a-4e0d-83ee-e3933d5d532f.JPG)
 
 <b>Red:</b> Control Voltage <br>
 <b>Blue:</b> Output Clock <br>
@@ -249,7 +251,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The Frequency Divider waveform is as shown below:
 
-![Fd_wave]()
+![Fd_wave](https://user-images.githubusercontent.com/56344583/129461688-0ac6a0d1-bb6d-4864-b14d-aa52baae4e17.JPG)
 
 <b>Red:</b> Output Clock <br>
 <b>Blue:</b> Input Clock <br>
@@ -258,7 +260,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The PLL waveform is as shown below: 
 
-![PLL_wave]()
+![PLL_wave](https://user-images.githubusercontent.com/56344583/129461690-01ef5306-8de4-4be7-a39a-84d7d9b73379.JPG)
 
 <b>Red:</b> Reference Clock <br>
 <b>Blue:</b> Output Clock Divided by 8 <br>
@@ -302,15 +304,11 @@ To connect two transistors, we use interconnect layer. To connect two metal laye
 
 ### Phase Frequency Detector 
 
-#### The command to be run to obtain the PFD layout is as shown below:
-
-![PFD_lay_term]()
-
 Similarly, we run this command for different PLL blocks by appropriately changing the name of the block as per the requirement.
 
 #### The PFD layout is as shown below:
 
-![PFD_lay]()
+![PFD_lay](https://user-images.githubusercontent.com/56344583/129461691-35a11926-677b-408d-b828-88770eb57a48.JPG)
 
 <b>Area:</b> 49.09um square <br>
 
@@ -318,7 +316,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The CP layout is as shown below:
 
-![CP_lay]()
+![CP_lay](https://user-images.githubusercontent.com/56344583/129461693-1c24117c-0809-4da7-8019-c5034615469e.JPG)
 
 <b>Area:</b> 132.29um square <br>
 
@@ -326,7 +324,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The VCO layout is as shown below:
 
-![VCO_lay]()
+![VCO_lay](https://user-images.githubusercontent.com/56344583/129461694-d4d0ac32-a148-4149-9d92-fb05e07d7e69.JPG)
 
 <b>Area:</b> 57.73um square <br>
 
@@ -334,7 +332,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The Frequency Divider layout is as shown below:
 
-![fd_lay]()
+![fd_lay](https://user-images.githubusercontent.com/56344583/129461698-5dca572e-643e-4d26-b950-a6c8e5b81115.JPG)
 
 <b>Area:</b> 49.09um square <br>
 
@@ -342,7 +340,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The MUX layout is as shown below:
 
-![mux_lay]()
+![mux_lay](https://user-images.githubusercontent.com/56344583/129461701-0df4d6e3-77d7-4748-93c7-c5a2addf35f3.JPG)
 
 <b>Area:</b> 12.12um square <br>
 
@@ -350,7 +348,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### The PLL layout is as shown below:
 
-![PLL_lay]()
+![PLL_lay](https://user-images.githubusercontent.com/56344583/129461702-8c714186-522d-4b27-8f1f-b148c1269333.JPG)
 
 <b>Area:</b> 496.03um square <br>
 
@@ -358,13 +356,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 ### Phase Frequency Detector
 
-#### The command to be run to obtain the PFD layout is as shown below:
-
-![PFD_postlay_term]()
-
-Similarly, we run this command for different PLL blocks by appropriately changing the name of the block as per the requirement.
-
-![PFD_postlay]()
+![PFD_postlay](https://user-images.githubusercontent.com/56344583/129461703-13b63e8c-0ab9-4f32-b606-006b975e1b30.JPG)
 
 <b>Red:</b> Clock 1 <br>
 <b>Blue:</b> Clock 2 <br>
@@ -375,7 +367,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### CP response when "UP" signal is high:
 
-![CP_postlaywave]()
+![CP_postlaywave](https://user-images.githubusercontent.com/56344583/129461706-e2b003fc-12b6-422b-a03c-57828bcb089b.JPG)
 
 <b>Orange:</b> Charge Pump Output Voltage <br>
 <b>Red:</b> Up Signal <br>
@@ -383,7 +375,7 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 #### CP output rise due to charge leakage: 
 
-![Cp_leakage_wave]()
+![Cp_leakage_wave](https://user-images.githubusercontent.com/56344583/129461707-aa00f5fd-0e9d-47a5-a286-f580cfc4b912.JPG)
 
 <b>Orange:</b> Charge Pump Output Voltage <br>
 <b>Red:</b> Up Signal <br>
@@ -392,21 +384,21 @@ Similarly, we run this command for different PLL blocks by appropriately changin
 
 ### VCO
 
-![VCO_postlay]()
+![VCO_postlay](https://user-images.githubusercontent.com/56344583/129461709-7d28154d-1081-45f3-bfb8-491b09c4b18d.JPG)
 
 <b>Red:</b> Output Clock <br>
 <b>Blue:</b> Control Voltage <br>
 
 ### Frequency Divider
 
-![FD_postlaywave]()
+![FD_postlaywave](https://user-images.githubusercontent.com/56344583/129461710-74461fc2-995a-420c-a19f-885964697703.JPG)
 
 <b>Red:</b> Input Clock <br>
 <b>Blue:</b> Output Clock <br>
 
 ### PLL
 
-![PLL_postlay]()
+![PLL_postlay](https://user-images.githubusercontent.com/56344583/129461711-504c8a47-0d9a-45ba-b9bd-a88dff8192a8.JPG)
 
 <b>Red:</b> Reference Clock <br>
 <b>Blue:</b> Output Clock Divided by 8 <br>
